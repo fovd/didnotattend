@@ -8,6 +8,17 @@ export type DnaPatientSmsReply = "awaiting" | "yes" | "no" | null;
 /** Access / travel burden for combined risk (demo labels). */
 export type DnaTransportDifficulty = "none" | "low" | "moderate" | "high";
 
+/** Most pertinent DNA barrier for staff triage (from model + record). */
+export type DnaReceptionBarrierFocus =
+  | "communication_methods"
+  | "communication_factors"
+  | "transport"
+  | "appointment_factors"
+  | "personal_factors";
+
+/** Whether the primary barrier came from patient report, history, or both. */
+export type DnaBarrierEvidence = "patient_report" | "previous_incidents" | "both";
+
 export type DnaDashboardAppointment = {
   id: string;
   patientName: string;
@@ -34,6 +45,10 @@ export type DnaDashboardAppointment = {
   contactPhoneDisplay: string;
   /** Extra one-tap actions below Call (e.g. taxi, transport). */
   secondaryActionLabels: string[];
+  /** Strongest barrier category for this slot (guides reception). */
+  primaryBarrier: DnaReceptionBarrierFocus;
+  /** Where the primary barrier signal came from (demo). */
+  primaryBarrierSource: DnaBarrierEvidence;
   /** Medium-risk SMS automation; n/a for high/low */
   sms7dStatus: DnaSmsStatus;
   sms3dStatus: DnaSmsStatus;

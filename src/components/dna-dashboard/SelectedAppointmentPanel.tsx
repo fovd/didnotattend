@@ -4,15 +4,20 @@ import type {
   DnaTransportDifficulty,
 } from "@/types/dna-dashboard";
 import { riskTierFromPercent } from "@/lib/dna-dashboard/risk-utils";
+import {
+  barrierEvidenceLabel,
+  barrierFullLabel,
+} from "@/lib/dna-dashboard/barrier-labels";
 
+/** Matches weekly schedule risk pills: dark fill, white label. */
 function tierBadgeClass(tier: DnaRiskTier): string {
   switch (tier) {
     case "high":
-      return "bg-rose-50 text-rose-900 ring-rose-200";
+      return "bg-rose-700 text-white ring-1 ring-rose-900/30";
     case "medium":
-      return "bg-amber-50 text-amber-950 ring-amber-200";
+      return "bg-yellow-600 text-white ring-1 ring-yellow-800/40";
     case "low":
-      return "bg-emerald-50 text-emerald-900 ring-emerald-200";
+      return "bg-emerald-700 text-white ring-1 ring-emerald-900/30";
   }
 }
 
@@ -85,13 +90,25 @@ function SelectedBody({ appointment }: { appointment: DnaDashboardAppointment })
             {appointment.combinedDnaRiskPercent}%
           </span>
           <span
-            className={`inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset ${tierBadgeClass(combinedTier)}`}
+            className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ${tierBadgeClass(combinedTier)}`}
           >
             {tierWord(combinedTier)}
           </span>
         </div>
         <p className="mt-1 text-xs text-slate-500">
           ML prediction plus history, deprivation, and transport (demonstration).
+        </p>
+      </div>
+
+      <div className="mt-3 border-t border-slate-100 pt-3">
+        <p className="text-[0.65rem] font-semibold uppercase tracking-wide text-slate-500">
+          Primary barrier
+        </p>
+        <p className="mt-1 text-sm font-medium text-slate-900">
+          {barrierFullLabel(appointment.primaryBarrier)}
+        </p>
+        <p className="mt-0.5 text-xs text-slate-600">
+          Source: {barrierEvidenceLabel(appointment.primaryBarrierSource)}
         </p>
       </div>
 

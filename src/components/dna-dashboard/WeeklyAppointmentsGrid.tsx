@@ -1,5 +1,10 @@
 import type { DnaDashboardAppointment } from "@/types/dna-dashboard";
 import { addDays, toISODateString } from "@/lib/dna-dashboard/date-utils";
+import {
+  barrierBadgeClass,
+  barrierFullLabel,
+  barrierShortLabel,
+} from "@/lib/dna-dashboard/barrier-labels";
 
 type WeeklyAppointmentsGridProps = {
   weekStartMonday: Date;
@@ -8,14 +13,15 @@ type WeeklyAppointmentsGridProps = {
   onSelect: (id: string | null) => void;
 };
 
+/** Strong contrast for weekly action cards (high / medium only in this grid). */
 function tierBadgeClass(tier: DnaDashboardAppointment["riskTier"]): string {
   switch (tier) {
     case "high":
-      return "bg-rose-50 text-rose-900 ring-rose-200";
+      return "bg-rose-700 text-white ring-1 ring-rose-900/30";
     case "medium":
-      return "bg-amber-50 text-amber-950 ring-amber-200";
+      return "bg-yellow-600 text-white ring-1 ring-yellow-800/40";
     case "low":
-      return "bg-emerald-50 text-emerald-900 ring-emerald-200";
+      return "bg-emerald-700 text-white ring-1 ring-emerald-900/30";
   }
 }
 
@@ -136,11 +142,17 @@ function DayCards({
               <div className="text-sm leading-snug text-slate-600 line-clamp-2">
                 {a.appointmentType}
               </div>
-              <div className="pt-0.5">
+              <div className="flex flex-wrap gap-1 pt-0.5">
                 <span
                   className={`inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset ${tierBadgeClass(a.riskTier)}`}
                 >
                   {tierLabel(a.riskTier)} · {a.dnaRiskPercent}%
+                </span>
+                <span
+                  className={`inline-flex max-w-full rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset ${barrierBadgeClass(a.primaryBarrier)}`}
+                  title={barrierFullLabel(a.primaryBarrier)}
+                >
+                  {barrierShortLabel(a.primaryBarrier)}
                 </span>
               </div>
             </button>

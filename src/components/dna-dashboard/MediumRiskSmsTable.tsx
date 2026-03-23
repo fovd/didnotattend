@@ -1,4 +1,8 @@
 import type { DnaDashboardAppointment } from "@/types/dna-dashboard";
+import {
+  barrierEvidenceLabel,
+  barrierShortLabel,
+} from "@/lib/dna-dashboard/barrier-labels";
 
 type MediumRiskSmsTableProps = {
   rows: DnaDashboardAppointment[];
@@ -64,6 +68,12 @@ export function MediumRiskSmsTable({ rows }: MediumRiskSmsTableProps) {
             <th scope="col" className="px-4 py-2.5">
               Risk %
             </th>
+            <th scope="col" className="max-w-[8rem] px-4 py-2.5">
+              Barrier focus
+            </th>
+            <th scope="col" className="whitespace-nowrap px-4 py-2.5">
+              Source
+            </th>
             <th scope="col" className="px-4 py-2.5">
               7-day SMS
             </th>
@@ -92,6 +102,12 @@ export function MediumRiskSmsTable({ rows }: MediumRiskSmsTableProps) {
               </td>
               <td className="px-4 py-2.5 tabular-nums text-slate-800">
                 {r.dnaRiskPercent}%
+              </td>
+              <td className="max-w-[10rem] px-4 py-2.5 text-xs text-slate-800">
+                {barrierShortLabel(r.primaryBarrier)}
+              </td>
+              <td className="px-4 py-2.5 text-xs text-slate-600">
+                {barrierEvidenceLabel(r.primaryBarrierSource)}
               </td>
               <td className="px-4 py-2.5 text-slate-700">{smsLabel(r.sms7dStatus)}</td>
               <td className="px-4 py-2.5 text-slate-700">{smsLabel(r.sms3dStatus)}</td>
