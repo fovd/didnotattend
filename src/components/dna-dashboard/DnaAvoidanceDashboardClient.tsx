@@ -17,6 +17,7 @@ import {
   dnaDashboardAppointments,
   dnaDashboardWeekAnchor,
 } from "@/data/dna-dashboard-mock";
+import { scoringRationaleBanner } from "@/data/dna-dashboard-rationale";
 import { DnaDashboardHeader } from "@/components/dna-dashboard/DnaDashboardHeader";
 import { WeekNavigator } from "@/components/dna-dashboard/WeekNavigator";
 import { StratifiedSummaryStrip } from "@/components/dna-dashboard/StratifiedSummaryStrip";
@@ -24,6 +25,7 @@ import { WeeklyAppointmentsGrid } from "@/components/dna-dashboard/WeeklyAppoint
 import { MediumRiskSmsTable } from "@/components/dna-dashboard/MediumRiskSmsTable";
 import { SelectedAppointmentPanel } from "@/components/dna-dashboard/SelectedAppointmentPanel";
 import { SuggestedActionsCard } from "@/components/dna-dashboard/SuggestedActionsCard";
+import { ScoringRationaleBanner } from "@/components/dna-dashboard/ScoringRationaleBanner";
 
 /** Action-focused week view: high + medium only; low uses routine SMS elsewhere. */
 function bucketByDay(
@@ -120,7 +122,8 @@ export function DnaAvoidanceDashboardClient() {
                   low={counts.low}
                 />
               </div>
-              <div className="pt-4">
+              <div className="space-y-4 pt-4">
+                <ScoringRationaleBanner copy={scoringRationaleBanner} />
                 <WeeklyAppointmentsGrid
                   weekStartMonday={weekStartMonday}
                   byDay={byDay}

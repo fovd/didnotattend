@@ -24,7 +24,7 @@ export function WeekNavigator({
   onNextWeek,
 }: WeekNavigatorProps) {
   return (
-    <div className="flex w-fit max-w-full flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+    <div className="flex w-fit max-w-full flex-col items-start gap-2 sm:flex-row sm:items-end sm:gap-3">
       <div className="min-w-0">
         <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Week
